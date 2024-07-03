@@ -9,6 +9,12 @@ body {
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
+	height: 100%;
+    margin: 0;
+    padding: 0;
+	overscroll-behavior: none;
+    
+	
 }
 /* dark mode looking scrollbar */
 ::-webkit-scrollbar {

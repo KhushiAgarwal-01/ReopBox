@@ -18,25 +18,13 @@ function HomePage() {
   const getUserAndRepo=useCallback( async(username="KhushiAgarwal-01")=>{
     setLoading(true);
     try{
-    const res= await fetch(`https://api.github.com/users/${username}`,{
-      headers:{
-        authorization:token `${import.meta.env.VITE_GITHUB_API_KEY}`
-      }
-    })
-    
-   
-    
-    const userProfile=await res.json();
+    const res= await fetch(`http://localhost:5000/api/users/profile/${username}`)
+   const {userProfile,repos}=await res.json();
     setUserProfile(userProfile);
-
-    const res2=await fetch(userProfile.repos_url)
- 
-    const repos=await res2.json();
-    repos.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at))
     setRepos(repos);
 
-    console.log('user',userProfile);
-    console.log('reposs',repos);
+    // console.log('user',userProfile);
+    // console.log('reposs',repos);
     setLoading(false);
      return{userProfile, repos}
     }

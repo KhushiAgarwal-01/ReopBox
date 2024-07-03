@@ -13,13 +13,9 @@ function ExplorePage() {
 		setRepos([]);
 		setSelectedLanguage(language)
 		try{
-			const response=await fetch(`https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=10`,{
-				headers:{
-					authorization:`token ${import.meta.env.VITE_GITHUB_API_KEY}`
-				},
-			})
-			const data= await response.json()
-			setRepos(data.items)
+			const res=await fetch(`http://localhost:5000/api/explore/repos/${language}`)
+			const {repos}= await res.json()
+			setRepos(repos)
 			setLoading(false);
 
 
@@ -50,7 +46,7 @@ function ExplorePage() {
 					 
 				</div>
 
-				{repos.length>0 && (
+				{repos?.length>0 && (
 					<h2 className='text-lg font-semibold text-center my-4'>
 						<span className=' text-blue-200 font-medium me-2 px-2.5 py-0.5 rounded-full '>
 							{selectedLanguage.toUpperCase()}{" "}
@@ -59,7 +55,7 @@ function ExplorePage() {
 					</h2>
 				)}
 
-				{!loading  && repos.length>0 &&
+				{!loading  && repos?.length>0 &&
 				 <Repos repos={repos} alwaysfullwidth />}
 
 				
